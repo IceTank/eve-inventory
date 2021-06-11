@@ -1,0 +1,54 @@
+html
+	head
+		title!= 'Group Info: ' + data.name
+	body
+		- var ImageServer = "https://images.evetech.net/types/"
+		style(type='text/css').
+			a:visited {
+					color: blue;
+			}
+			table {
+					width: auto;
+					text-align: left;
+					border: 1px solid black;
+			}
+			thead {
+					border-collapse: separate;
+			}
+			th {
+					border: 1px solid black;
+					/*width: 40px;*/
+					/*font:normal !*18px/1.1em*!;*/
+					font: large Arial, Helvetica, Sans-Serif;
+					/*text-shadow: 1px 1px 4px black;*/
+					/*letter-spacing:0.3em;*/
+					/*background-color:#BDB76B;*/
+					color:black;
+			}
+		h2!= 'Group Info: ' + data.name
+		//table(border='1', width="1200", style="text-align: left;")
+		text Some Text
+		table
+			//- col(width="100")
+			//- col(width="300")
+			col(style="width: auto")
+			col(style="width: 10%;")
+			col(style="width: 15%;")
+			col()
+			thead
+				tr
+					th
+					th Id
+					th Name
+					th Description
+			tbody
+				each item, index in data.names
+					tr
+						th
+							img(src=ImageServer + index + '/icon?size=32' style="")
+						th
+							p!= index
+						th
+							a(href="/item?type_id=" + index target="_blank") #{item.typeName}
+						th
+							p!= item.description

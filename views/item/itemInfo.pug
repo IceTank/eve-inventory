@@ -1,0 +1,51 @@
+html
+  head
+    title!= 'Item Info: ' + item.typeName
+  body
+    - var ImageServer = "https://images.evetech.net/types/"
+    h2!= 'Item Info: ' + item.typeName
+    div
+      img(src=ImageServer + item.typeID + '/icon')
+    table(border='1', width="1200", style="text-align: left;")
+      col(width="100")
+      col(width="300")
+      tr
+        th Name
+        th= item.typeName
+      tr
+        th Description
+        th!= item.description
+      tr
+        th Volume
+        th= item.volume
+      tr
+        th Mass
+        th= item.mass
+      tr
+        th Capacity
+        th= item.capacity
+      tr
+        th Group ID
+        th
+          a(href="/itemGroup?group_id=" + item.groupID)!= item.groupID
+      
+        
+  //-       typeID: '16527',
+  //- groupID: '507',
+  //- typeName: "'Arbalest' Rocket Launcher I",
+  //- description: 'A tiny launcher that can carry a very limited supply of rockets. Not really intended as a primary weapon but rather as a cheap supplementary weapon system.',
+  //- mass: '0E-10',
+  //- volume: '5.0000000000',
+  //- capacity: '0.2250000000',
+  //- portionSize: '1',
+  //- raceID: 'None',
+  //- basePrice: '3000.0000',
+  //- published: '1',
+  //- marketGroupID: '639',
+  //- iconID: '1345',
+  //- soundID: 'None',
+  //- graphicID: '21745'
+      
+  
+  //- https://images.evetech.net/types/16527/icon
+  //- https://images.evetech.net/types/1345/icon

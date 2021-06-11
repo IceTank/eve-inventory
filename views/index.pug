@@ -1,0 +1,35 @@
+html
+  head
+    title= title
+    style(type='text/css').
+      a:visited {
+        color: blue;
+      }
+  body
+    h3= title
+    a(href='/charactersInfo') Characters Info
+    if hasSessions
+      each s in Sessions
+        h3!= s.CharacterName
+        ul
+          li
+            a(href='/assets?name=' + s.CharacterName) Assets
+          li
+            a(href='/fittings?name=' + s.CharacterName) Fittings
+          li
+            a(href='/character?name=' + s.CharacterName) Character 
+          li
+            a(href='/session?name=' + s.CharacterName) Character Session
+          li
+            a(href='/skills?name=' + s.CharacterName) Character Skills
+      a(href='/newAuth') New Session
+    else 
+      h2.red No Sessions
+      a(href='/newAuth') New Session
+    
+    
+    
+//- 
+  title: 'Hallo There',   join("%20")
+  hasSessions: (currentSessions.length > 0),
+  Sessions: currentSessions

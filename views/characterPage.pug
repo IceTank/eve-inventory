@@ -1,0 +1,23 @@
+html
+  head
+    title= 'Character Page ' + name
+    style(type='text/css').
+      a:visited {
+        color: blue;
+      }
+  body
+    h3!= "Character <b>" + name + "</b>"
+    ul
+      li
+        a(href='/assets?name=' + name) Assets
+      li
+        a(href='/fittings?name=' + name) Fittings
+      li
+        a(href='/session?name=' + name) Character Session
+      li
+        a(href='/bookmarks?name=' + name) Character Bookmarks(Not Available)
+      li
+        a(href='/skills?name=' + name) Character Skills
+
+    p
+      a(href='/') Home

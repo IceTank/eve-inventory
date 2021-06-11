@@ -1,0 +1,28 @@
+html
+  head 
+    title!= 'Fittings of ' + characterName
+    style(type='text/css').
+      a:visited {
+        color: blue;
+      }
+  body
+    - var ImageServer = "https://images.evetech.net/types/"
+    
+    h2!= "Fittings of <a href='character?name=" + characterName + "'>" + characterName + "</a>"
+    div
+      table(border="1")
+        tr
+          th 
+          th Name
+          th Ship Type
+        each fitting in fittings
+          tr
+            th
+              a(href="/test")
+                img(src=ImageServer + fitting.ship_type_id + '/icon')
+            th
+              a(href="/fit?fittingId=" + fitting.fitting_id + '&name=' + characterName)
+                p(style={color: 'blue', 'text-align': 'center'}) #{fitting.name}
+            th
+              p!= fitting.shipName
+        

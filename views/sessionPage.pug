@@ -1,0 +1,8 @@
+html
+  head
+    title= 'Session Page'
+  body
+    h3!= 'Session of <a href="/character?name=' + name + '">Character ' + name +'</a> <a href="/session?name=' + name + '">Session ' + name +'</a>'
+    ul 
+      each val, index in session
+        li= index + ': ' + val

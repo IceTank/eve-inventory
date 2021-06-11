@@ -1,0 +1,178 @@
+html
+  head
+    title!= 'Assets of ' + characterName
+    style(type='text/css').
+      a:visited {
+        color: blue;
+      }
+    script(src='/scripts/assetsPage.js' type="text/javascript")
+    - var ImageServer = "https://images.evetech.net/types/"
+    - var lastUpdate = Math.ceil(dataAge / (1000 * 60))
+  body(onload="document.forms.assets_form.submit()")
+    h2!= "Assets of <a href='character?name=" + characterName + "'>" + characterName + "</a>"
+    //- h3= 'Total Item Stacks ' + Object.keys(assets).length
+    div(style="width: 100%")
+      form(action="/assetsTable" name="assets_form" target="test_frame" style="border: none" method="GET")
+        
+        // Character Name
+        div(style="width: 500" id="div_character")
+          label(for="character_name")!= 'Character: '
+          //- input(type="hidden" name="name" id="character_name" value=characterName) 
+          select(name="name" id="character_name")
+            option(value=characterName selected)!= characterName
+            option(value="Test1") Weeee this a Test
+        
+        div(id="div_itemFilteringAndSorting")
+          div(id="div_sorting" style="display: inline-block; width: 150; height: 200; vertical-align: top;")
+            h3 Sorting
+            div(style="float: left")
+              input(checked onclick="document.forms.assets_form.page.value = 1" type="radio" id="checkbox_sort_name" name="sort" value="name")
+              label(for="checkbox_sort_name") Sort Name
+              br
+              input(onclick="document.forms.assets_form.page.value = 1" type="radio" id="checkbox_sort_quantity" name="sort" value="quantity")
+              label(for="checkbox_sort_quantity") Sort Quantity
+              br
+              input(onclick="document.forms.assets_form.page.value = 1" type="radio" id="checkbox_sort_location" name="sort" value="location_id")
+              label(for="checkbox_sort_location") Sort Location
+              br
+              input(onclick="document.forms.assets_form.page.value = 1" type="radio" id="checkbox_sort_location_flag" name="sort" value="location_flag")
+              label(for="checkbox_sort_location_flag") Sort Location Flag
+              br
+              br
+              input(type="radio" name="order" id="checkbox_order_ascending" value="ascending" checked)
+              label(for="checkbox_order_ascending") Order Ascending
+              br
+              input(type="radio" name="order" id="checkbox_order_descending" value="descending")
+              label(for="checkbox_order_descending") Order Descending
+
+          div(id="div_lastupdate" style="display: inline-block; width: 150; height: 200; vertical-align: top;")
+            h3 Last Updated
+            div(style="")
+              p
+              p()!= lastUpdate > 1 ? `Last update ${lastUpdate} minutes ago` : `Last update ${lastUpdate} minute ago`
+              
+          div(id="div_pages" style="display: inline-block; width: 170; height: 200; vertical-align: top;")  
+            h3 Pages
+            div(style="")
+              label(for="current_page")!= 'Current Page: '
+              br
+              input(style="width: 60" min=1 type="number" id="current_page" name="page" value="1")
+            div()
+              label(for="num_items_pre_page")!= 'Items Per Page: '
+              br
+                //- input(style="width: 40" min=1 type="number" id="num_items_pre_page" name="itemsPerPage" value="100")
+              select(style="width: 60" name="itemsPerPage")
+                option(value="25") 25
+                option(value="50") 50
+                option(selected value="100") 100
+                option(value="200") 200
+                option(value="1000") 1000
+                option(value="10000") 10000
+              
+          div(id="div_filter" style="display: inline-block; width: 180; height: 200; vertical-align: top;")
+            h3 Filter
+            div(style="")  
+              input(id="checkbox_hideNoneHanger" name="filter" value="hideNoneHanger" type="checkbox")
+              label(for="checkbox_hideNoneHanger") Hide None Hanger
+              br
+              input(id="checkbox_hideNPCStation" name="filter" value="hideNPCStation" type="checkbox") 
+              label(for="checkbox_hideNPCStation") Hide NPC Stations
+              
+          div(id="div_search" style="display: inline-block; width: 150; height: 200; vertical-align: top;")
+            h3 Search
+            div(style="float: none") 
+              input(id="text_search_item" name="searchItem" type="search")
+              label(for="text_search_item") Search
+              
+        div(style="display: inline-block; width: 100%; margin-top: 10")
+          //- button(id="button_submit" type="submit") Button
+          div(style="")
+            button(style="width: 50") Go
+            //- label(for="button_submit") Test
+                        
+    div(style="display: inline-block; width: 100%; margin-top: 10")
+      div(style="float: left")
+        button(type="button" id="button_previous_page" onclick="document.forms.assets_form.page.value--; document.forms.assets_form.submit()") 
+          | Previous Page
+      div(style="float: right")
+        button(type="button" id="button_next_page" onclick="document.forms.assets_form.page.value++; document.forms.assets_form.submit()") 
+          | Next Page
+        
+    iframe(name="test_frame" style="width: 100%" frameborder="0" scrolling="no" onload="resizeIframe(this)")
+            
+    //- table(border='1')
+    //-   col(width="150")
+    //-   col(width="300")
+    //-   thead
+    //-     th(style="width: 30")
+    //-     th Name
+    //-     //- th Description
+    //-     th Base Price
+    //-     th is_singleton
+    //-     th itemid
+    //-     th Location Flag
+    //-     th location Id
+    //-     th location type
+    //-     th quantity
+    //-     th type id
+    //-     th Station Name
+    //-   tbody(id="table_body")
+    //-     each val, name in assets
+    //-       tr 
+    //-         if val.is_blueprint_copy
+    //-           th(style="width: 30")
+    //-             img(src=ImageServer + val.type_id + '/bpc' style="width: 20")
+    //-           th!= val.name + name
+    //-           //- th Blueprint
+    //-           th 0
+    //-           th false
+    //-           th!= val.item_id
+    //-           th!= val.location_flag
+    //-           th!= val.location_id
+    //-           th!= val.location_type
+    //-           th!= val.quantity
+    //-           th!= val.type_id
+    //-           //- if ['AssetSafety', 'Hanger'].includes(val.location_flag) 
+    //-           if val.stationName.found 
+    //-             th(style="color: green") #{val.stationName.name}
+    //-           else
+    //-             th(style="color: gray") #{val.stationName.name}
+    //- 
+    //-         else
+    //-           th(style="width: 30")
+    //-             img(src=ImageServer + val.type_id + '/icon' style="width: 20")
+    //-           th
+    //-             a(href="/item?type_id=" + val.type_id) #{val.name}
+    //-           //- th!= val.description
+    //-           th!= val.basePrice 
+    //-           th!= val.is_singleton
+    //-           th!= val.item_id
+    //-           th!= val.location_flag
+    //-           th!= val.location_id
+    //-           th!= val.location_type
+    //-           th!= val.quantity
+    //-           th!= val.type_id
+    //-           if val.stationName.found 
+    //-             th(style="color: green") #{val.stationName.name}
+    //-           else
+    //-             th(style="color: gray") #{val.stationName.name}
+        
+//-
+    if hasSessions
+      each s in Sessions
+        h3!= s.CharacterName
+        ul
+          li
+            a(href='/session?name=' + s.CharacterName) Character Sheet
+          li
+            a(href='/assets?name=' + s.CharacterName) Assets
+
+    else
+      h2.red No Sessions
+
+
+
+//-
+  characterName: req.query.name,
+  assets: assets
+  sortOptions: options

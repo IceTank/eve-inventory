@@ -1,0 +1,87 @@
+html
+  head 
+  body
+    - var ImageServer = "https://images.evetech.net/types/"
+    
+    h2!= 'Fittings of ' + characterName
+    each fitting in fittings
+      div
+        h3(style={color: 'blue', 'text-align': 'center'}) #{fitting.name}
+        p!= 'Ship: ' + fitting.shipName
+        h4 High Slots
+        div
+          //- - var items = ""
+          table
+            each item in fitting.items
+              if item.flag.search('HiSlot') == 0 
+                //- - items += item.itemName + '<br>'
+                tr
+                  th 
+                    img(src=ImageServer + item.type_id + '/icon')
+                    text!= item.itemName
+            
+          //- p!= items
+        h4 Mid Slots
+        div
+          //- - var items = ""
+          //- each item in fitting.items
+          //-   if item.flag.search('MedSlot') == 0 
+          //-     - items += item.itemName + '<br>'
+          //- p!= items
+          
+          table
+            each item in fitting.items
+              if item.flag.search('MedSlot') == 0 
+                //- - items += item.itemName + '<br>'
+                tr
+                  th 
+                    img(src=ImageServer + item.type_id + '/icon')
+                    text!= item.itemName
+        h4 Low Slots
+        div
+          //- - var items = ""
+          //- each item in fitting.items
+          //-   if item.flag.search('LoSlot') == 0 
+          //-     - items += item.itemName + '<br>'
+          //- p!= items
+          table
+            each item in fitting.items
+              if item.flag.search('LoSlot') == 0 
+                tr
+                  th 
+                    img(src=ImageServer + item.type_id + '/icon')
+                    text!= item.itemName
+        h4 Rig Slot
+        div
+          //- - var items = ""
+          //- each item in fitting.items
+          //-   if item.flag.search('RigSlot') == 0 
+          //-     - items += item.itemName + '<br>'
+          //- p!= items
+          table
+            each item in fitting.items
+              if item.flag.search('RigSlot') == 0 
+                tr
+                  th 
+                    img(src=ImageServer + item.type_id + '/icon')
+                    text!= item.itemName
+        h4 Cargo
+        div
+          //-   - var items = ""
+          //-   each item in fitting.items
+          //-     if item.flag.search('Cargo') == 0 
+          //-       - items += item.itemName + '<br>'
+             //- p!= items
+          table
+            each item in fitting.items
+              if item.flag.search('RigSlot') == 0 
+                tr
+                  th 
+                    img(src=ImageServer + item.type_id + '/icon')
+                    text!= item.itemName
+
+
+
+//-
+  characterName: req.query.name,
+  fittings: fittings

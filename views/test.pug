@@ -1,0 +1,70 @@
+//- Simple inline paragraph text
+p I am inline text
+
+//- These two pipes will create 2 new lines
+|
+|
+//- This will add empty line between above code and below code
+//-  
+    Literal html will also work.
+    Pug will simply ignore any text starting with `<` left angle bracket.
+    Hence you need to manually close tag.
+<p>I am literal html code </p>
+
+//-
+    Unlike block comments, we can not add more text in new lines.
+    Because any text inside a tag is valid pug code and pug will try to compile it.
+    Hence, we need to use `.` dot or `|` pipe character.
+//- Using pipe character in every line, we can span text over multiple lines.
+//- Pipe character will treat text as normal text and add new line.
+//- But we can mix any valid pug code in new line using this style.
+p
+    | Hello World!
+    | I am Pug, your buddy to write simple HTML templates.
+    em Let's explore the world, shall we?
+    | Very nice to meet you :)
+
+//- To create block of text with auto line break, we can use `.` character.
+//- There should not be any space between tag name and `.` dot character.
+//- Any text in this block is not processed by Pug, hence you need to use HTML literal unline previous example.
+//- Dot character must start right after the tag name, 
+    or after the closing parenthesis `)` if the tag has attributes.
+p.
+    Hello World!
+    I am Pug, your buddy to write simple HTML templates.
+    <em>Let's explore the world, shall we?</em>
+    Very nice to meet you :)
+//- Using `.` dot character, we can make use of block of text to write style or script code,
+//- since, all text in this block will not be processed by pug.
+script.
+    if(window.navigator.geolocation){
+        console.log("Geolocation available!")
+    }
+    else{
+        console.warn("Geolocation not available!")
+    }
+style(type="text/css").
+    html, body{
+        padding: 0;
+        margin: 0;
+    }
+
+//- We can also create a dot block of plain text after other tags within the parent tag.
+div
+    p Hello World! I am in a paragraph. I am optional here :(
+    .
+        Hey there!
+        I am in a block but in `div` tag.
+        Because, dot without a tag will put me in parent tag.
+
+//- Pug provided tag interpolation.
+//- syntax for tag interploation is like `#[tagName content]`
+p
+    b Hi there! I am #[strong John Doe].
+
+//- Pug provided `:` operator to make block expression into inline.
+p: b Hi there! I am inline #[strong John Doe].
+
+//- Pug automatically closes self closing tags like `img`, `br`, `link` etc.
+//- But to force pug to self close a custom tag is to put `/` forward slash at the end of the tag
+double-break/

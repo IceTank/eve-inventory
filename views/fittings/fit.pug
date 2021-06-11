@@ -1,0 +1,63 @@
+html
+  head 
+  body
+    - var ImageServer = "https://images.evetech.net/types/"
+    
+    h2!= "Fitting of <a href='character?name=" + characterName + "'>" + characterName + "</a>"
+    div
+      h3(style={color: 'blue', 'text-align': 'center'}) #{fitting.name}
+      p!= 'Ship: ' + fitting.shipName
+      h4 High Slots
+      div
+        table
+          each item in fitting.items
+            if item.flag.search('HiSlot') == 0 
+              tr
+                th 
+                  img(src=ImageServer + item.type_id + '/icon')
+                  text!= item.itemName
+      h4 Mid Slots
+      div
+        table
+          each item in fitting.items
+            if item.flag.search('MedSlot') == 0 
+              tr
+                th 
+                  img(src=ImageServer + item.type_id + '/icon')
+                  text!= item.itemName
+      h4 Low Slots
+      div
+        table
+          each item in fitting.items
+            if item.flag.search('LoSlot') == 0 
+              tr
+                th 
+                  img(src=ImageServer + item.type_id + '/icon')
+                  text!= item.itemName
+      h4 Rig Slot
+      div
+        table
+          each item in fitting.items
+            if item.flag.search('RigSlot') == 0 
+              tr
+                th 
+                  img(src=ImageServer + item.type_id + '/icon')
+                  text!= item.itemName
+      h4 Cargo
+      div
+        table
+          each item in fitting.items
+            if item.flag.search('Cargo') == 0 
+              tr
+                th 
+                  img(src=ImageServer + item.type_id + '/icon')
+                  text!= item.itemName
+        h4 Drone Bay
+        div
+          table
+            each item in fitting.items
+              if item.flag.search('DroneBay') == 0 
+                tr
+                  th 
+                    img(src=ImageServer + item.type_id + '/icon')
+                    text!= item.itemName

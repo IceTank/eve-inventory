@@ -1,0 +1,38 @@
+html
+	head
+		title Characters Info
+		style(type='text/css').
+			a:visited {
+				color: blue;
+			}
+			table {
+				width: auto;
+				text-align: left;
+				border: 1px solid black;
+			}
+			th {
+			border: 1px solid black;
+			font: large Arial, Helvetica, Sans-Serif;
+			color: black;
+			}
+	body
+		h2 Character Infos
+		p
+			a(href='/') Home
+		table
+			thead
+				th Character
+				th Solar System
+				th Station
+			tbody
+			each character, index in data
+				tr
+					th!= character.value.name
+					if character.status === 'fulfilled'
+						th!= character.value.data.solar_system_name
+						th!= character.value.data.structure_name
+					else
+						th Api Failed
+						th :(
+
+

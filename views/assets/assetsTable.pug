@@ -1,0 +1,61 @@
+head
+  - var ImageServer = "https://images.evetech.net/types/"
+  script(src='/scripts/assetsTable.js' type="text/javascript")
+  style(type='text/css').
+    a:visited {
+      color: blue;
+    }
+
+body
+  text Number of Items: #{data.shownItems} - Page #{data.currentPage} of #{data.totalPages}
+  | #{data.itemsHidden ? ' - Items Hidden ' + data.itemsHidden : ""} 
+  | #{data.itemsPerPage ? ' - Items per Page: ' + data.itemsPerPage : ""}
+  table(border='1')
+    col(width="150")
+    col(width="300")
+    thead
+      th(style="width: 30")
+      th Name
+      //- th Description
+      th Base Price
+      th is_singleton
+      th itemid
+      th Location Flag
+      th location Id
+      th location type
+      th quantity
+      th type id
+      th Station Name
+      th Location Id
+    tbody(id="table_body")
+      each val, name in data.assets
+        tr 
+          if val.is_blueprint_copy || val.is_blueprint
+            th(style="width: 30")
+              img(src=ImageServer + val.type_id + '/bpc?size=64' style="")
+            th!= val.name + name
+            //- th Blueprint
+            th 0
+            th false
+          
+          else
+            th(style="width: 30")
+              img(src=ImageServer + val.type_id + '/icon?size=64' onerror="" style="")
+            th
+              a(href="/item?type_id=" + val.type_id target="_blank") #{val.name}
+            //- th!= val.description
+            th!= val.basePrice 
+            th!= val.is_singleton
+            
+          th!= val.item_id
+          th!= val.location_flag
+          th!= val.location_id
+          th!= val.location_type
+          th!= val.quantity
+          th!= val.type_id
+          - let stationName = val.stationName ? val.stationName.name : ""
+          if val.stationName && val.stationName.found
+            th(style="color: green")!= stationName
+          else
+            th(style="color: gray")!= stationName
+          th!= JSON.stringify(val)
